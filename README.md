@@ -10,7 +10,7 @@ This repo is a curated excerpt of that system. The full repo is private because 
 
 - A self-healing knowledge layer: deterministic checks, drift detection, and eval that keep a doc canon correct
 - I am client zero. It runs on its own docs, daily, in production
-- **2,759** tests. **35** deterministic freshness checks. One judge that says "uncertain" instead of guessing
+- **3,014** tests. **41** deterministic freshness checks. One judge that says "uncertain" instead of guessing
 
 ## How it works
 
