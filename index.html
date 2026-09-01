@@ -5,24 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Knowledge Layer · Shannon Daly</title>
 <meta name="description" content="A self-healing knowledge layer: deterministic checks, drift detection, and eval that keep a doc canon correct. Built and run in production by Shannon Daly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Zilla+Slab:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf9f7; --surface: #ffffff; --ink: #1a1a1a; --ink-2: #52504b;
-    --ink-3: #8a877f; --line: #e7e4de; --accent: #2f6f6a; --accent-ink: #ffffff;
-    --code-bg: #14211f; --code-ink: #d7e5e2;
+    --bg: #faf6f2; --surface: #ffffff; --ink: #1a1a16; --ink-2: #52504b;
+    --ink-3: #8a8579; --line: #eadfd3; --accent: #17402b; --accent-2: #eacab7;
+    --accent-3: #94c8c4; --accent-ink: #ffffff;
+    --code-bg: #0f2c1e; --code-ink: #dde8df;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #131312; --surface: #1c1c1a; --ink: #ecebe7; --ink-2: #b3b0a8;
-      --ink-3: #7d7a72; --line: #2d2c29; --accent: #6fb3ac; --accent-ink: #10201e;
-      --code-bg: #0e1917; --code-ink: #c9dcd8;
+      --bg: #0f2b1d; --surface: #17402b; --ink: #f4ece4; --ink-2: #d8cdc0;
+      --ink-3: #a3b3a6; --line: #24503a; --accent: #eacab7; --accent-2: #eacab7;
+      --accent-3: #94c8c4; --accent-ink: #17402b;
+      --code-bg: #0a2015; --code-ink: #dde8df;
     }
   }
   * { box-sizing: border-box; margin: 0; }
   body {
     background: var(--bg); color: var(--ink);
-    font: 17px/1.65 -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+    font: 17px/1.65 "Avenir Next", Avenir, Mulish, -apple-system, "Segoe UI", sans-serif;
   }
+  h1, h2, .demo-block h3, .hero .kicker { font-family: Kefa, "Zilla Slab", Georgia, serif; }
   main { max-width: 880px; margin: 0 auto; padding: 0 24px 96px; }
   a { color: var(--accent); }
   h1 { font-size: 2.4rem; line-height: 1.15; letter-spacing: -0.02em; }
@@ -48,7 +54,7 @@
   pre.term { background: var(--code-bg); color: var(--code-ink); border-radius: 10px;
     padding: 20px; overflow-x: auto; font: 13px/1.6 ui-monospace, "SF Mono", Menlo,
     Consolas, monospace; margin: 16px 0 8px; }
-  pre.term .q { color: #9ecfca; } pre.term .ok { color: #8fd0a0; }
+  pre.term .q { color: #94c8c4; } pre.term .ok { color: #8fd0a0; }
   .note { font-size: .85rem; color: var(--ink-3); }
   ul { padding-left: 20px; color: var(--ink-2); margin: 0 0 16px; }
   li { margin-bottom: 8px; }
@@ -65,6 +71,9 @@
   @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
   footer { border-top: 1px solid var(--line); margin-top: 80px; padding-top: 32px;
     color: var(--ink-2); }
+  .pattern-band { height: 90px; margin-top: 72px; opacity: .5;
+    background: url(docs/images/solto-pattern.webp) repeat-x center / auto 180px; }
+  @media (prefers-color-scheme: dark) { .pattern-band { display: none; } }
   img { max-width: 100%; border-radius: 10px; border: 1px solid var(--line); }
   .demo-block { margin: 0 0 6rem; }
   .demo-block:last-of-type { margin-bottom: 3rem; }
@@ -84,7 +93,11 @@
 <main>
 
 <header class="hero">
-  <div class="kicker">Shannon Daly · Solto</div>
+  <picture>
+    <source srcset="docs/images/solto-logo-dark.webp" media="(prefers-color-scheme: dark)">
+    <img class="logo" src="docs/images/solto-logo.webp" alt="Solto" width="640" height="284" style="width:150px;height:auto;border:0;border-radius:0;margin-bottom:14px">
+  </picture>
+  <div class="kicker">Shannon Daly, Founder</div>
   <h1>A knowledge layer that keeps its own docs honest.</h1>
   <p class="lede" style="margin-top:16px">Companies move fast and their documentation doesn't. Docs go stale because maintaining them takes too long, so knowledge lives in people's heads and turnover gets risky. Now add AI agents to that. Agents don't remove the bottleneck, they move it. And if they're reading from stale or thin context, they turn it into risk.</p>
   <p>I learned this the direct way, running my business on agents that were acting on docs that were true for about two days each. Confidently wrong costs more than never starting. So I built the layer underneath first: a knowledge layer that keeps its own docs honest. I am client zero. It runs on its own docs, daily, in production.</p>
@@ -231,6 +244,7 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
   </div>
 </div>
 
+<div class="pattern-band" aria-hidden="true"></div>
 <footer>
   <p>This page is a curated excerpt. The full repo is private because it runs my business, client work and live infrastructure included. Happy to walk anyone through it live.</p>
   <p><a href="docs/01-architecture.md">The architecture, diagram included</a> · <a href="docs/02-drift-outcomes.md">The drift outcomes, measured</a> · <a href="https://github.com/shannonldaly/knowledge-layer-showcase">The excerpts on GitHub</a></p>
