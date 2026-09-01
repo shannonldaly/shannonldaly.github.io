@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rubato · Shannon Daly</title>
+<meta name="description" content="Rubato, an AI music production copilot for Ableton: validated chord progressions from a multi-agent system, sent into a live Ableton set over MCP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Zilla+Slab:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<nav class="site"><a href="/">← SHANNON DALY</a></nav>
+<main>
+<header class="hero">
+  <div class="kicker">Other builds · Rubato</div>
+  <h1>Music Co-Pilot (Rubato)</h1>
+  <p class="lede" style="margin-top:16px">An AI-powered music production assistant built as a multi-agent system. Type a mood, genre, or artist reference and get a validated chord progression with Ableton instructions, a theory explanation, and audio preview. Not Suno. This doesn't generate music for you. It amplifies your ability to generate music yourself.</p>
+  <p>I built it around a pain point I hit while learning music production: Claude kept hallucinating chord progressions, and I wanted help that was actually correct.</p>
+</header>
+
+<h2>How it works</h2>
+<p>The Orchestrator receives every request, detects intent, routes to the minimum set of agents needed, and assembles a structured response. Theory output is validated by music21 before it ever reaches the user, so the progressions are checked by a deterministic quality gate, not vibes. Every agent call is logged with structured fields.</p>
+<div class="cols">
+  <div class="card"><h3>Theory Agent + Validator</h3><p>Chord progressions with alternatives and melody direction, validated deterministically by music21. The validator is not an LLM. It's a quality gate.</p></div>
+  <div class="card"><h3>Production Agent</h3><p>Step-by-step Ableton Live 12 instructions, and over MCP the chords land directly in a live Ableton set with a pad instrument auto-loaded, immediately playable.</p></div>
+  <div class="card"><h3>Teaching Agent</h3><p>Explains the why. Sonnet API when a key is available, local templates as the fallback, so the app works at $0.</p></div>
+  <div class="card"><h3>Sound Engineering Agent</h3><p>Mixing, EQ, compression, sidechain. Nine local topics with API fallback.</p></div>
+</div>
+
+<h2>What works today</h2>
+<p>The full loop, end to end: prompt → validated progression → send to Ableton over MCP → chords in a live set, pad loaded, playable. The same principle as everything else I build: the tool proposes, the human decides, and a deterministic layer checks the output before anyone trusts it.</p>
+<div class="placeholder">Demo clips land here when Rubato comes off pause. Until then, the repo has the full architecture and agent inventory.</div>
+
+<h2>Status</h2>
+<p>Paused while I build <a href="/knowledge-layer/">the Knowledge Layer</a>. When it resumes: operational readiness, then the demo.</p>
+<p><a href="https://github.com/shannonldaly/music-copilot">The code on GitHub →</a></p>
+
+<div class="pattern-band" aria-hidden="true"></div>
+<footer>
+  <p>Built by someone learning Ableton who got tired of Claude hallucinating chord progressions.</p>
+</footer>
+</main>
+</body>
+</html>
