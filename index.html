@@ -209,6 +209,14 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
     <p>Prompt-injection compliance is measured against a pinned baseline and can only ratchet up. The baseline records exactly which model versions it was measured on, so a silent model bump gets named, never absorbed.</p>
   </div>
   <div class="card">
+    <h3>Evals gate every change</h3>
+    <p>Behavior is measured, not folklore. A homegrown fixture-based eval suite runs in CI at zero API cost, and a change to any detector doesn't merge without a matching fixture change. "It feels better" is never the evidence.</p>
+  </div>
+  <div class="card">
+    <h3>Judgment earns autonomy</h3>
+    <p>Every check type carries a measured precision bar. New judgment-style checks start as warnings and graduate to blocking only after their false-positive rate clears the bar, with the rubric seeded from human-ratified verdict sittings. Autonomy is earned with numbers, never assumed.</p>
+  </div>
+  <div class="card">
     <h3>Spend that cannot run away</h3>
     <p>Every metered path carries a fail-closed ceiling: the scheduled sweep has an absolute dollar backstop, and every run persists its exact meter totals even when it crashes. "No record" and "$0" are never confusable.</p>
   </div>
