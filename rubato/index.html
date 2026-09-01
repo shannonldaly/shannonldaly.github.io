@@ -29,9 +29,19 @@
   <div class="card"><h3>Sound Engineering Agent</h3><p>Mixing, EQ, compression, sidechain. Nine local topics with API fallback.</p></div>
 </div>
 
-<h2>What works today</h2>
-<p>The full loop, end to end: prompt → validated progression → send to Ableton over MCP → chords in a live set, pad loaded, playable. The same principle as everything else I build: the tool proposes, the human decides, and a deterministic layer checks the output before anyone trusts it.</p>
-<div class="placeholder">Demo clips land here when Rubato comes off pause. Until then, the repo has the full architecture and agent inventory.</div>
+<h2>Watch it work</h2>
+<p>The core loop, recorded against the running app: pick a session mode, type "melancholic lo-fi in A minor," and get a validated progression back in seconds. Watch the agent pipeline across the top go green, the music21 check pass, and the Send to Ableton button light up.</p>
+<div class="demo-block" style="margin-bottom:2rem">
+<figure>
+  <div class="frame">
+    <video controls preload="none" playsinline width="1432" height="604" poster="/docs/media/rubato-core-loop-poster.webp">
+      <source src="/docs/media/rubato-core-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <figcaption>What you're looking at: the Orchestrator routes the request, the Theory Agent proposes Am–Dm (a minor plagal move), the music21 validator passes it, and the progression is ready to land in Ableton. Every agent in the top bar reports its status.</figcaption>
+</figure>
+</div>
+<p>The full loop goes one step further: Send to Ableton pushes the chords over MCP into a live set with a pad instrument auto-loaded, immediately playable. That clip lands when Rubato comes off pause.</p>
 
 <h2>Status</h2>
 <p>Paused while I build <a href="/knowledge-layer/">the Knowledge Layer</a>. When it resumes: operational readiness, then the demo.</p>
