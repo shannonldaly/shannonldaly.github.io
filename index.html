@@ -56,6 +56,11 @@
     border-radius: 12px; padding: 24px; margin: 16px 0; }
   .placeholder { border: 2px dashed var(--line); border-radius: 12px;
     padding: 24px; color: var(--ink-3); font-size: .9rem; margin: 16px 0; }
+  ul.xp { list-style: none; padding: 0; margin: 24px 0 8px; }
+  ul.xp li { margin: 0 0 18px; padding-left: 0; }
+  ul.xp .role { font-weight: 600; color: var(--ink); }
+  ul.xp .yrs { font: 500 .8rem/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color: var(--ink-3); margin-left: 8px; white-space: nowrap; }
   .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
   footer { border-top: 1px solid var(--line); margin-top: 80px; padding-top: 32px;
@@ -199,9 +204,17 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
 
 <h2>About me</h2>
 <p>I see what's real, and I make it safe to move on it. That's the pattern under everything I build: find the problem nobody has named yet, then make it safe enough that people act on it instead of freezing. The knowledge layer is that same shape as software. See what's true, make it safe to act.</p>
-<!-- TODO(Shannon): work-experience block — roles, companies, years. Structure below is ready; drop in your history. -->
-<div class="placeholder">Work experience · Shannon fills this block (roles · companies · what shipped). Photos alongside. Tracked as SDA-116.</div>
+<p>The short version: eight years of product leadership, most of it building enterprise platforms from zero.</p>
+<ul class="xp">
+  <li><span class="role">Founder &amp; AI Product Engineer, Solto Studio</span><span class="yrs">2026–now</span><br>Built and shipped the knowledge platform on this page, architecture through production, with governance, measured accuracy, and near-zero operating costs.</li>
+  <li><span class="role">Senior Technical Product Manager, Capital One</span><span class="yrs">2023–2025</span><br>Product lead for a mission-critical card-authorizations platform processing 25M+ authorizations a day at under 250ms, from inception to delivery. Over $100M saved in fraud and operating costs.</li>
+  <li><span class="role">Product Manager, Capital One</span><span class="yrs">2019–2022</span><br>Built the 0-to-1 Enterprise Fulfillment Platform across 8+ teams: $1M a month in savings at twice the speed, with Reg Z, UDAP, and ADA compliance handled along the way.</li>
+  <li><span class="role">Product Marketing &amp; CRM Product Manager, DuPont</span><span class="yrs">2015–2019</span><br>Global marketing strategy for a $30M business, and Salesforce product lead for 200+ users across the Nomex, Tyvek, and Kevlar businesses.</li>
+  <li><span class="role">Data Analytics Coordinator, Infinity Marketing</span><span class="yrs">2012–2014</span><br>Advertising-spend insights for the corporate client team of a $9B company.</li>
+</ul>
+<p class="note">University of South Carolina: B.S. Business Marketing and a Bachelor of Music.</p>
 <!-- TODO(Shannon): photo(s) — drop into docs/images/ and swap this placeholder. -->
+<div class="placeholder">Photos · warm and candid, professional + lifestyle (they measurably build trust). Drop into docs/images/ and this placeholder gets swapped.</div>
 
 <h2>Also built</h2>
 <div class="cols">
@@ -211,7 +224,7 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
   </div>
   <div class="card">
     <h3><a href="https://github.com/shannonldaly/music-copilot">Rubato, a music copilot for Ableton</a></h3>
-    <p>An AI music-production assistant: chord progressions built on real theory rules and sent straight into a live Ableton set over MCP, pad instrument loaded and immediately playable. A completely different domain on the same principle, the tool proposes and the human decides.</p>
+    <p>An AI music-production assistant I built around a pain point I hit while learning music production: chord progressions built on real theory rules and sent straight into a live Ableton set over MCP, pad instrument loaded and immediately playable. A completely different domain on the same principle, the tool proposes and the human decides.</p>
   </div>
 </div>
 
