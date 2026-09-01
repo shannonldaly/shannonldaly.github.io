@@ -87,6 +87,13 @@
   .demo-block video { display: block; width: 100%; height: auto; border-radius: 8px; }
   .demo-block figcaption { font-size: .85rem; color: var(--ink-3);
     line-height: 1.6; margin-top: 12px; }
+  ul.unlock { list-style: none; padding: 0; margin: 20px 0 8px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+  @media (max-width: 640px) { ul.unlock { grid-template-columns: 1fr; } }
+  ul.unlock li { margin: 0; padding: 10px 0 10px 18px; color: var(--ink-2);
+    border-left: 3px solid var(--accent-2); }
+  .closer { font-family: Kefa, "Zilla Slab", Georgia, serif; font-size: 1.25rem;
+    color: var(--ink); margin: 28px 0 0; }
 </style>
 </head>
 <body>
@@ -179,10 +186,6 @@
   <span>canon healed</span>
 </div>
 <p>Three lanes, in order of cost. <strong>Write-time:</strong> 41 deterministic checks at pre-commit: pointer rot, count drift, supersession, cross-doc consistency. If it's computable, no LLM is involved, and a failure blocks the commit. <strong>Scheduled sweep:</strong> catches what slips past commits; mechanical drift gets fixed into a PR, judgment calls go to a human. Always. <strong>Semantic judge:</strong> claims judged against the code as it is now, every verdict cites file:line. It proposes, you decide.</p>
-<p>The judgment queue mid-review, evidence pinned to a snapshot, and the verdict is mine to make:</p>
-<p><img src="docs/images/judgment-card-evidence.png" alt="A judgment card with snapshot-pinned evidence and confirm/noise verdicts"></p>
-<p>The health strip doing its job: an incomplete sweep flagged instead of hidden, cost per run on the meter, and repeat offenders named as structural gaps:</p>
-<p><img src="docs/images/judgment-queue-health-strip.png" alt="The health strip, spend meter, and repeat-offenders panel"></p>
 
 <h2>Ask a question, get a provable answer</h2>
 <p>The part most systems fake. Here the answer isn't from a chat model's memory. Every line is traceable to the canon's current text, and the system says so out loud. This is real output, on local embeddings, at zero API cost:</p>
@@ -193,6 +196,18 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
   current_phase = 2b
     ↳ standards/STATE.md:23 · snapshot caf8c750 · <span class="ok">live ✓ · repro ✓</span></pre>
 <p class="note">The receipts on every line: the doc and line the answer comes from, the exact content snapshot it was extracted from, a live check that the claim still stands, and a reproducibility check that re-running the extraction gets the same value. Measured on a golden set of paraphrase queries: 90% hit@1, and both out-of-corpus negative controls correctly scored below the answer floor. The honest header up top tells you how big the corpus really is, so an empty index reads as dark, never as "no answer exists."</p>
+
+<h2>What this unlocks</h2>
+<p>A trustworthy knowledge layer is not a docs chore. It's the ground for everything you'd actually want agents to do:</p>
+<ul class="unlock">
+  <li>Reporting that writes itself, with the insights attached</li>
+  <li>Content loops wired to analytics, so what landed feeds what gets written next</li>
+  <li>A deck in minutes, current as of this morning, one version per audience without the versioning circus</li>
+  <li>A roadmap or an architecture doc spun up from the code and the docs as they actually are</li>
+  <li>Meeting notes that turn into content and customer signal instead of dying in a drive</li>
+  <li>Less reactive mode, because the strategic signal stops getting lost in the noise</li>
+</ul>
+<p>None of that is safe to automate on stale docs. All of it is sitting there once the docs can be trusted.</p>
 
 <h2>A few of the guardrails</h2>
 <div class="cols">
@@ -222,6 +237,14 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
   </div>
 </div>
 <p class="note">Dependencies are pinned with a committed lockfile and audited in CI. Secret scanning runs over the full history. The engineering discipline behind all of it is written down and machine-enforced: the checks that gate this repo's own docs are the product, applied to itself.</p>
+
+<h2>Where it's going</h2>
+<ul>
+  <li>More sockets (Notion, Obsidian, any MCP source) onto the existing spine, since the ingestion contract is already source-agnostic</li>
+  <li>The deterministic floor stays the engine. The LLM is the escalation path, not the default</li>
+  <li>A thin structural layer instead of a fact-graph. The graph was the expensive, low-trust path, so it got cut</li>
+</ul>
+<p class="closer">The tech will keep changing but the ground underneath will not.</p>
 
 <h2>About me</h2>
 <p>I see what's real, and I make it safe to move on it. That's the pattern under everything I build: find the problem nobody has named yet, then make it safe enough that people act on it instead of freezing. The knowledge layer is that same shape as software. See what's true, make it safe to act.</p>
