@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Knowledge Layer · Shannon Daly</title>
-<meta name="description" content="A self-healing knowledge layer: deterministic checks, drift detection, and eval that keep a doc canon correct. Built and run in production by Shannon Daly.">
+<meta name="description" content="Shannon Daly, Senior Technical Product Manager and builder. Portfolio: a production self-healing knowledge layer with live demos, plus other builds.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Zilla+Slab:wght@500;600;700&display=swap" rel="stylesheet">
@@ -33,6 +33,9 @@
   a { color: var(--accent); }
   h1 { font-size: 2.4rem; line-height: 1.15; letter-spacing: -0.02em; }
   h2 { font-size: 1.5rem; margin: 72px 0 16px; letter-spacing: -0.01em; }
+  h2.flagship { font-size: 2rem; line-height: 1.15; margin: 12px 0 16px; }
+  .flagship-kicker { color: var(--accent); font-weight: 600; font-size: .85rem;
+    text-transform: uppercase; letter-spacing: .08em; margin: 88px 0 0; }
   h3 { font-size: 1.05rem; margin: 24px 0 8px; }
   p { margin: 0 0 16px; color: var(--ink-2); }
   p.lede { font-size: 1.15rem; color: var(--ink); }
@@ -101,15 +104,22 @@
 <main>
 
 <header class="hero">
-  <picture>
-    <source srcset="docs/images/solto-logo-dark.webp" media="(prefers-color-scheme: dark)">
-    <img class="logo" src="docs/images/solto-logo.webp" alt="Solto" width="640" height="284" style="width:150px;height:auto;border:0;border-radius:0;margin-bottom:14px">
-  </picture>
-  <div class="kicker">Shannon Daly, Founder</div>
-  <h1>A knowledge layer that keeps its own docs honest.</h1>
+  <div class="kicker">Senior Technical Product Manager · Builder</div>
+  <h1>Shannon Daly</h1>
+  <p class="lede" style="margin-top:16px">I figure out what to build, the problem underneath the problem, and I stay through the messy middle until the outcome survives contact with reality.</p>
+  <p>Eight-plus years of product leadership across enterprise platforms, and now the founder of Solto, where I built the production system below.</p>
+</header>
+
+<div class="flagship-kicker">Flagship build · Solto</div>
+<picture>
+  <source srcset="docs/images/solto-logo-dark.webp" media="(prefers-color-scheme: dark)">
+  <img class="logo" src="docs/images/solto-logo.webp" alt="Solto" width="640" height="284" style="width:130px;height:auto;border:0;border-radius:0;margin:16px 0 4px">
+</picture>
+<h2 class="flagship">A knowledge layer that keeps its own docs honest.</h2>
+<div>
   <p class="lede" style="margin-top:16px">Companies move fast and their documentation doesn't. Docs go stale because maintaining them takes too long, so knowledge lives in people's heads and turnover gets risky. Now add AI agents to that. Agents don't remove the bottleneck, they move it. And if they're reading from stale or thin context, they turn it into risk.</p>
   <p>I learned this the direct way, running my business on agents that were acting on docs that were true for about two days each. Confidently wrong costs more than never starting. So I built the layer underneath first: a knowledge layer that keeps its own docs honest. I am client zero. It runs on its own docs, daily, in production.</p>
-</header>
+</div>
 
 <div class="stats">
   <div class="stat"><div class="label">Tests passing</div><div class="value">3,014</div></div>
@@ -263,7 +273,7 @@ compared against 18 live claims (model BAAI/bge-small-en-v1.5)
   <img src="docs/images/shannon-kitesurf.webp" alt="Shannon kitesurfing, mid-jump" width="846" height="1000">
 </div>
 
-<h2>Also built</h2>
+<h2>Other builds</h2>
 <div class="cols">
   <div class="card">
     <h3><a href="https://github.com/shannonldaly/job-search-automation">Job-search automation</a></h3>
