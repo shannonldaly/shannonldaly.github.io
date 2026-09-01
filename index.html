@@ -99,57 +99,57 @@
 
 <div class="demo-block">
   <div class="step">01</div>
-  <h3>Ask for a deck, get a certified one<span class="dur">0:53</span></h3>
-  <p>A freeform prompt in Slack, and the deck is composed from the canon as it stands right now, not from anyone's memory.</p>
+  <h3>Ask for a deck, get one back in under a minute<span class="dur">0:53</span></h3>
+  <p>A plain-language prompt in Slack becomes a downloadable, branded stakeholder deck, built from documentation that is verified current.</p>
   <figure>
     <div class="frame">
       <video controls preload="none" playsinline width="2856" height="1454" poster="docs/media/uc1-artifact-poster.webp">
         <source src="docs/media/uc1-artifact.mp4" type="video/mp4">
       </video>
     </div>
-    <figcaption>What you're looking at: the PDF lands back in the thread wearing its certification stamp, an as-of snapshot plus a live count of open drifts. If the canon were drifting, the deck would say so on its own cover. Nothing ships from stale context without telling you.</figcaption>
+    <figcaption>What you're looking at: I ask in plain language and the deck comes back in the thread as a PDF, 53 seconds later, on brand and composed from the docs as they stand right now. The stamp on the cover is the honesty part: it names the exact snapshot it was built from and counts any open drift, so a deck built on stale docs would tell on itself.</figcaption>
   </figure>
 </div>
 
 <div class="demo-block">
   <div class="step">02</div>
-  <h3>Ask a question, get receipts<span class="dur">1:13</span></h3>
-  <p>A deck is the big answer. This is the small one: a paraphrased question, answered from the canon's current text.</p>
+  <h3>Ask about anything the team has written down<span class="dur">1:13</span></h3>
+  <p>Any question that is answered somewhere in the documentation, asked in your own words, answered in Slack.</p>
   <figure>
     <div class="frame">
       <video controls preload="none" playsinline width="1920" height="978" poster="docs/media/uc2-ask-poster.webp">
         <source src="docs/media/uc2-ask.mp4" type="video/mp4">
       </video>
     </div>
-    <figcaption>What you're looking at: every line of the answer carries the doc and line it came from, the snapshot it was extracted from, and live plus repro checks that it still holds. The corpus-size header at the top is deliberate honesty, so an empty index reads as dark, never as "no answer exists."</figcaption>
+    <figcaption>What you're looking at: the answer comes from the team's actual docs, not a chat model's memory. Every line shows the doc and line it came from plus a live check that it still holds, so you can trust it or trace it. You ask it like you'd ask a teammate, and it answers like the teammate who cites their sources.</figcaption>
   </figure>
 </div>
 
 <div class="demo-block">
   <div class="step">03</div>
-  <h3>Break the plan, watch it get caught<span class="dur">0:35</span></h3>
-  <p>Questions are easy when nothing changed. So here something changes: a tracked issue gets cancelled in Linear.</p>
+  <h3>Linear, docs, and code, kept in sync automatically<span class="dur">0:35</span></h3>
+  <p>The plan changes in Linear, and the system notices that the documentation no longer matches. No one has to remember to go check.</p>
   <figure>
     <div class="frame">
       <video controls preload="none" playsinline width="2856" height="1454" poster="docs/media/uc3-ruling-poster.webp">
         <source src="docs/media/uc3-ruling.mp4" type="video/mp4">
       </video>
     </div>
-    <figcaption>What you're looking at: the watch pair flags the retraction and a digest lands in Slack with a doc:line receipt. The call is mine to make, so I reopen the issue in Linear. Then the closing command in a fresh terminal, <code>features 13 · findings 0 · drift=0</code>, is the exact remediation line the digest named. The system tells you how to prove it healed, and the proof agrees. Mechanical doc drift heals one lane over: the sweep turns verified fixes into real GitHub PRs, capped and never auto-merged.</figcaption>
+    <figcaption>What you're looking at: I cancel a tracked issue in Linear. The system catches that the plan and the docs now disagree and sends the alert to Slack, pointing at the exact doc and line. The call is a human's to make, so I reopen the issue, and one command confirms everything matches again: <code>features 13 · findings 0 · drift=0</code>. When the fix is mechanical instead of a judgment call, the system goes further and opens a real GitHub PR on its own, capped and never auto-merged.</figcaption>
   </figure>
 </div>
 
 <div class="demo-block">
   <div class="step">04</div>
-  <h3>Close an issue, the board already moved<span class="dur">0:09</span></h3>
-  <p>The shortest clip, because the work is server-side.</p>
+  <h3>Ask where things stand, any time<span class="dur">0:09</span></h3>
+  <p>Current status on demand, computed from what is actually true right now.</p>
   <figure>
     <div class="frame">
       <video controls preload="none" playsinline width="2856" height="1454" poster="docs/media/uc4-status-poster.webp">
         <source src="docs/media/uc4-status.mp4" type="video/mp4">
       </video>
     </div>
-    <figcaption>What you're looking at: /kl status computes milestone percent and open members from the live reconcile, not a cache, so the issue closed seconds ago is already reflected. Nine seconds is the honest length of this feature.</figcaption>
+    <figcaption>What you're looking at: I close an issue, then ask /kl status. The board percentage is computed live from the source of truth, not from a cached report, so the issue I closed seconds ago is already counted. Nine seconds, because that's all it takes.</figcaption>
   </figure>
 </div>
 
