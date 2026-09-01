@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Knowledge Layer · Shannon Daly</title>
+<meta name="description" content="A self-healing knowledge layer: deterministic checks, drift detection, and eval that keep a doc canon correct. Built and run in production by Shannon Daly.">
+<style>
+  :root {
+    --bg: #faf9f7; --surface: #ffffff; --ink: #1a1a1a; --ink-2: #52504b;
+    --ink-3: #8a877f; --line: #e7e4de; --accent: #2f6f6a; --accent-ink: #ffffff;
+    --code-bg: #14211f; --code-ink: #d7e5e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131312; --surface: #1c1c1a; --ink: #ecebe7; --ink-2: #b3b0a8;
+      --ink-3: #7d7a72; --line: #2d2c29; --accent: #6fb3ac; --accent-ink: #10201e;
+      --code-bg: #0e1917; --code-ink: #c9dcd8;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 17px/1.65 -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+  }
+  main { max-width: 880px; margin: 0 auto; padding: 0 24px 96px; }
+  a { color: var(--accent); }
+  h1 { font-size: 2.4rem; line-height: 1.15; letter-spacing: -0.02em; }
+  h2 { font-size: 1.5rem; margin: 72px 0 16px; letter-spacing: -0.01em; }
+  h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+  p { margin: 0 0 16px; color: var(--ink-2); }
+  p.lede { font-size: 1.15rem; color: var(--ink); }
+  header.hero { padding: 88px 0 8px; }
+  .kicker { color: var(--accent); font-weight: 600; font-size: .85rem;
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin: 40px 0 8px; }
+  .stat { background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; padding: 16px 18px; }
+  .stat .label { font-size: .8rem; color: var(--ink-3); margin-bottom: 4px; }
+  .stat .value { font-size: 1.7rem; font-weight: 600; }
+  .asof { font-size: .8rem; color: var(--ink-3); margin-bottom: 40px; }
+  .loop { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    margin: 20px 0 24px; font-weight: 600; font-size: .95rem; }
+  .loop span { background: var(--surface); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; }
+  .loop .arrow { border: 0; background: none; color: var(--ink-3); padding: 0; }
+  pre.term { background: var(--code-bg); color: var(--code-ink); border-radius: 10px;
+    padding: 20px; overflow-x: auto; font: 13px/1.6 ui-monospace, "SF Mono", Menlo,
+    Consolas, monospace; margin: 16px 0 8px; }
+  pre.term .q { color: #9ecfca; } pre.term .ok { color: #8fd0a0; }
+  .note { font-size: .85rem; color: var(--ink-3); }
+  ul { padding-left: 20px; color: var(--ink-2); margin: 0 0 16px; }
+  li { margin-bottom: 8px; }
+  .card { background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .placeholder { border: 2px dashed var(--line); border-radius: 12px;
+    padding: 24px; color: var(--ink-3); font-size: .9rem; margin: 16px 0; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  footer { border-top: 1px solid var(--line); margin-top: 80px; padding-top: 32px;
+    color: var(--ink-2); }
+  img { max-width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+  .demo-block { margin: 0 0 6rem; }
+  .demo-block:last-of-type { margin-bottom: 3rem; }
+  .demo-block .step { font: 600 .85rem/1 ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace; color: var(--accent); letter-spacing: .1em; margin-bottom: 10px; }
+  .demo-block h3 { font-size: 1.35rem; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .demo-block .dur { font: 500 .85rem/1 ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace; color: var(--ink-3); margin-left: 10px; white-space: nowrap; }
+  .demo-block figure { margin: 0; }
+  .demo-block .frame { background: var(--code-bg); border-radius: 14px; padding: 10px; }
+  .demo-block video { display: block; width: 100%; height: auto; border-radius: 8px; }
+  .demo-block figcaption { font-size: .85rem; color: var(--ink-3);
+    line-height: 1.6; margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <div class="kicker">Shannon Daly · Solto</div>
+  <h1>A knowledge layer that keeps its own docs honest.</h1>
+  <p class="lede" style="margin-top:16px">Companies move fast and their documentation doesn't. Docs go stale because maintaining them takes too long, so knowledge lives in people's heads and turnover gets risky. Now add AI agents to that. Agents don't remove the bottleneck, they move it. And if they're reading from stale or thin context, they turn it into risk.</p>
+  <p>I learned this the direct way, running my business on agents that were acting on docs that were true for about two days each. Confidently wrong costs more than never starting. So I built the layer underneath first: a knowledge layer that keeps its own docs honest. I am client zero. It runs on its own docs, daily, in production.</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="label">Tests passing</div><div class="value">3,014</div></div>
+  <div class="stat"><div class="label">Deterministic checks</div><div class="value">41</div></div>
+  <div class="stat"><div class="label">Retrieval hit@1, measured</div><div class="value">90%</div></div>
+  <div class="stat"><div class="label">Drift noise traced to layout, not facts</div><div class="value">≥95%</div></div>
+  <div class="stat"><div class="label">Full-corpus sweep cost</div><div class="value">$26.74</div></div>
+</div>
+<p class="asof">Every number on this page is measured, not asserted. Counts verified 2026-09-01 against the production repo; the measured rates and the sweep cost are from their 2026-08 runs.</p>
+
+<h2>Watch it work</h2>
+<p>Four clips, one recording session, 2026-08-31, against the production system. Silent on purpose, unedited machinery on purpose: every frame is real machinery doing its real job. Nothing is mocked and nothing is staged after the fact.</p>
+
+<div class="demo-block">
+  <div class="step">01</div>
+  <h3>Ask for a deck, get one back in under a minute<span class="dur">0:53</span></h3>
+  <p>A plain-language prompt in Slack becomes a downloadable, branded stakeholder deck, built from documentation that is verified current.</p>
+  <figure>
+    <div class="frame">
+      <video controls preload="none" playsinline width="2856" height="1454" poster="docs/media/uc1-artifact-poster.webp">
+        <source src="docs/media/uc1-artifact.mp4" type="video/mp4">
+      </video>
+    </div>
+    <figcaption>What you're looking at: I ask in plain language and the deck comes back in the thread as a PDF, 53 seconds later, on brand and composed from the docs as they stand right now. The stamp on the cover is the honesty part: it names the exact snapshot it was built from and counts any open drift, so a deck built on stale docs would tell on itself.</figcaption>
+  </figure>
+</div>
+
+<div class="demo-block">
+  <div class="step">02</div>
+  <h3>Ask about anything the team has written down<span class="dur">1:13</span></h3>
+  <p>Any question that is answered somewhere in the documentation, asked in your own words, answered in Slack.</p>
+  <figure>
+    <div class="frame">
+      <video controls preload="none" playsinline width="1920" height="978" poster="docs/media/uc2-ask-poster.webp">
+        <source src="docs/media/uc2-ask.mp4" type="video/mp4">
+      </video>
+    </div>
+    <figcaption>What you're looking at: the answer comes from the team's actual docs, not a chat model's memory. Every line shows the doc and line it came from plus a live check that it still holds, so you can trust it or trace it. You ask it like you'd ask a teammate, and it answers like the teammate who cites their sources.</figcaption>
+  </figure>
+</div>
+
+<div class="demo-block">
+  <div class="step">03</div>
+  <h3>Linear, docs, and code, kept in sync automatically<span class="dur">0:35</span></h3>
+  <p>The plan changes in Linear, and the system notices that the documentation no longer matches. No one has to remember to go check.</p>
+  <figure>
+    <div class="frame">
+      <video controls preload="none" playsinline width="2856" height="1454" poster="docs/media/uc3-ruling-poster.webp">
+        <source src="docs/media/uc3-ruling.mp4" type="video/mp4">
+      </video>
+    </div>
+    <figcaption>What you're looking at: I cancel a tracked issue in Linear. The system catches that the plan and the docs now disagree and sends the alert to Slack, pointing at the exact doc and line. The call is a human's to make, so I reopen the issue, and one command confirms everything matches again: <code>features 13 · findings 0 · drift=0</code>. When the fix is mechanical instead of a judgment call, the system goes further and opens a real GitHub PR on its own, capped and never auto-merged.</figcaption>
+  </figure>
+</div>
+
+<div class="demo-block">
+  <div class="step">04</div>
+  <h3>Ask where things stand, any time<span class="dur">0:09</span></h3>
+  <p>Current status on demand, computed from what is actually true right now.</p>
+  <figure>
+    <div class="frame">
+      <video controls preload="none" playsinline width="2856" height="1454" poster="docs/media/uc4-status-poster.webp">
+        <source src="docs/media/uc4-status.mp4" type="video/mp4">
+      </video>
+    </div>
+    <figcaption>What you're looking at: I close an issue, then ask /kl status. The board percentage is computed live from the source of truth, not from a cached report, so the issue I closed seconds ago is already counted. Nine seconds, because that's all it takes.</figcaption>
+  </figure>
+</div>
+
+<h2>The loop, closed</h2>
+<div class="loop">
+  <span>drift detected</span><span class="arrow">→</span>
+  <span>judged with evidence</span><span class="arrow">→</span>
+  <span>PR opened</span><span class="arrow">→</span>
+  <span>canon healed</span>
+</div>
+<p>Three lanes, in order of cost. <strong>Write-time:</strong> 41 deterministic checks at pre-commit: pointer rot, count drift, supersession, cross-doc consistency. If it's computable, no LLM is involved, and a failure blocks the commit. <strong>Scheduled sweep:</strong> catches what slips past commits; mechanical drift gets fixed into a PR, judgment calls go to a human. Always. <strong>Semantic judge:</strong> claims judged against the code as it is now, every verdict cites file:line. It proposes, you decide.</p>
+<p>The judgment queue mid-review, evidence pinned to a snapshot, and the verdict is mine to make:</p>
+<p><img src="docs/images/judgment-card-evidence.png" alt="A judgment card with snapshot-pinned evidence and confirm/noise verdicts"></p>
+<p>The health strip doing its job: an incomplete sweep flagged instead of hidden, cost per run on the meter, and repeat offenders named as structural gaps:</p>
+<p><img src="docs/images/judgment-queue-health-strip.png" alt="The health strip, spend meter, and repeat-offenders panel"></p>
+
+<h2>Ask a question, get a provable answer</h2>
+<p>The part most systems fake. Here the answer isn't from a chat model's memory. Every line is traceable to the canon's current text, and the system says so out loud. This is real output, on local embeddings, at zero API cost:</p>
+<pre class="term"><span class="q">$ kl ask "what phase is the build in right now?"</span>
+compared against 18 live claims (model BAAI/bge-small-en-v1.5)
+
+▸ system · current_phase  (score 0.6959)
+  current_phase = 2b
+    ↳ standards/STATE.md:23 · snapshot caf8c750 · <span class="ok">live ✓ · repro ✓</span></pre>
+<p class="note">The receipts on every line: the doc and line the answer comes from, the exact content snapshot it was extracted from, a live check that the claim still stands, and a reproducibility check that re-running the extraction gets the same value. Measured on a golden set of paraphrase queries: 90% hit@1, and both out-of-corpus negative controls correctly scored below the answer floor. The honest header up top tells you how big the corpus really is, so an empty index reads as dark, never as "no answer exists."</p>
+
+<h2>The part a CTO reads twice</h2>
+<div class="cols">
+  <div class="card">
+    <h3>Least-privilege by construction</h3>
+    <p>Reads and writes run on scoped database roles; the admin key never rides the request path. Row-level security is on everywhere, with zero grants to anonymous roles. Required secrets fail closed at startup: a missing token stops the boot, it doesn't degrade quietly.</p>
+  </div>
+  <div class="card">
+    <h3>Claims that verify themselves</h3>
+    <p>Every security control the docs name is bound in a machine-checked registry: claim → module → the call site that proves it's on the path it claims. Five bindings hold today; a control that drifts out of its path warns on the next run.</p>
+  </div>
+  <div class="card">
+    <h3>A red-team ratchet in CI</h3>
+    <p>Prompt-injection compliance is measured against a pinned baseline and can only ratchet up. The baseline records exactly which model versions it was measured on, so a silent model bump gets named, never absorbed.</p>
+  </div>
+  <div class="card">
+    <h3>Spend that cannot run away</h3>
+    <p>Every metered path carries a fail-closed ceiling: the scheduled sweep has an absolute dollar backstop, and every run persists its exact meter totals even when it crashes. "No record" and "$0" are never confusable.</p>
+  </div>
+</div>
+<p class="note">Dependencies are pinned with a committed lockfile and audited in CI. Secret scanning runs over the full history. The engineering discipline behind all of it is written down and machine-enforced: the checks that gate this repo's own docs are the product, applied to itself.</p>
+
+<h2>About me</h2>
+<p>I see what's real, and I make it safe to move on it. That's the pattern under everything I build: find the problem nobody has named yet, then make it safe enough that people act on it instead of freezing. The knowledge layer is that same shape as software. See what's true, make it safe to act.</p>
+<!-- TODO(Shannon): work-experience block — roles, companies, years. Structure below is ready; drop in your history. -->
+<div class="placeholder">Work experience · Shannon fills this block (roles · companies · what shipped). Photos alongside. Tracked as SDA-116.</div>
+<!-- TODO(Shannon): photo(s) — drop into docs/images/ and swap this placeholder. -->
+
+<h2>Also built</h2>
+<div class="cols">
+  <div class="card">
+    <h3><a href="https://github.com/shannonldaly/job-search-automation">Job-search automation</a></h3>
+    <p>An end-to-end pipeline for a targeted PM search: Perplexity-powered company discovery, ATS monitoring across Ashby and Greenhouse, and scoring against career criteria. Built because watching dozens of target companies by hand every day is unsustainable, so I made the machine do the watching. Runs as an n8n pipeline; the repo holds the system and its README.</p>
+  </div>
+  <div class="card">
+    <h3><a href="https://github.com/shannonldaly/music-copilot">Rubato, a music copilot for Ableton</a></h3>
+    <p>An AI music-production assistant: chord progressions built on real theory rules and sent straight into a live Ableton set over MCP, pad instrument loaded and immediately playable. A completely different domain on the same principle, the tool proposes and the human decides.</p>
+  </div>
+</div>
+
+<footer>
+  <p>This page is a curated excerpt. The full repo is private because it runs my business, client work and live infrastructure included. Happy to walk anyone through it live.</p>
+  <p><a href="docs/01-architecture.md">The architecture, diagram included</a> · <a href="docs/02-drift-outcomes.md">The drift outcomes, measured</a> · <a href="https://github.com/shannonldaly/knowledge-layer-showcase">The excerpts on GitHub</a></p>
+</footer>
+
+</main>
+</body>
+</html>
