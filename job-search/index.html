@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job-Search Automation · Shannon Daly</title>
+<meta name="description" content="An end-to-end job-search machine: Perplexity-powered discovery, ATS monitoring with n8n and Gmail, and a Claude rating agent that scores postings against written career criteria.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Zilla+Slab:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<nav class="site"><a href="/">← SHANNON DALY</a></nav>
+<main>
+<header class="hero">
+  <div class="kicker">Other builds · Job-search automation</div>
+  <h1>An end-to-end job-search machine</h1>
+  <p class="lede" style="margin-top:16px">Senior PM searches are highly targeted. You're not applying to hundreds of roles. You're watching 20 to 40 specific companies for the right one to open, and doing that by hand across Ashby, Greenhouse, and Lever every day is unsustainable. So I made the machine do the watching.</p>
+</header>
+
+<h2>The pipeline</h2>
+<div class="loop">
+  <span>discover</span><span class="arrow">→</span>
+  <span>monitor</span><span class="arrow">→</span>
+  <span>score</span><span class="arrow">→</span>
+  <span>draft</span>
+</div>
+<div class="cols">
+  <div class="card"><h3>Discovery</h3><p>A Perplexity-powered research agent finds target companies against seven structured criteria: funding stage, size, remote policy, AI depth, tech stack, and relevance. Output is a structured company profile, not a link dump.</p></div>
+  <div class="card"><h3>Monitoring</h3><p>Target companies are watched across ATS platforms with state kept between runs, so new postings and removed roles surface as changes, not noise. An n8n and Gmail workflow handles the alerting. This replaced 2+ hours a day of manual checking.</p></div>
+  <div class="card"><h3>The rating agent</h3><p>Every new posting gets scored 1 to 10 by Claude against my written career criteria, with the rationale written back next to the score, so the sheet reads like a colleague triaged it and shows their work.</p></div>
+  <div class="card"><h3>Cover-letter drafts</h3><p>Anything scoring 7 or higher gets a first-draft cover letter generated in my own writing voice, from a voice reference I maintain. Drafts, not sends. The human decides.</p></div>
+</div>
+
+<h2>How the scoring thinks</h2>
+<p>The rubric is written down, which is the whole point. A 9 means a direct domain match plus sweet-spot factors. A 7 means strong transferable experience and good company signals. Low scores carry their reasons too, so a pass is as legible as a pursue. Same principle as everything else on this site: judgment gets encoded, the machine applies it consistently, and the human reviews the calls.</p>
+
+<p><a href="https://github.com/shannonldaly/job-search-automation">The code on GitHub →</a> (The rating agent runs privately, since it carries my career criteria and credentials.)</p>
+
+<div class="pattern-band" aria-hidden="true"></div>
+<footer>
+  <p>Built because the strategic signal was getting lost in the tab-checking.</p>
+</footer>
+</main>
+</body>
+</html>
