@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rubato · Shannon Daly</title>
-<meta name="description" content="Rubato, an AI music production copilot for Ableton: validated chord progressions from a multi-agent system, sent into a live Ableton set over MCP.">
+<meta name="description" content="Rubato, a music production copilot for Ableton: validated chord progressions from a multi-agent system, with the whole arrangement sent into a live Ableton set over MCP.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Zilla+Slab:wght@500;600;700&display=swap" rel="stylesheet">
@@ -16,15 +16,15 @@
 <header class="hero">
   <div class="kicker">Other builds · Rubato</div>
   <h1>Music Co-Pilot (Rubato)</h1>
-  <p class="lede" style="margin-top:16px">An AI-powered music production assistant built as a multi-agent system. Type a mood, genre, or artist reference and get a validated chord progression with Ableton instructions, a theory explanation, and audio preview. Not Suno. This doesn't generate music for you. It amplifies your ability to generate music yourself.</p>
-  <p>I built it around a pain point I hit while learning music production: Claude kept hallucinating chord progressions, and I wanted help that was actually correct.</p>
+  <p class="lede" style="margin-top:16px">A music production copilot built as a multi-agent system. Type a mood, a genre, or an artist reference and get a validated chord progression with Ableton instructions, a theory explanation, and an audio preview. It's the scratchpad for the skeleton of your song, and when you like the starting point, one click sends it into Ableton.</p>
+  <p>I built it around the pain point I kept hitting while learning music production. Starting a song from scratch in a DAW means facing too many choices about the skeleton of the song at once, and then transposing every idea into the right key by hand. Rubato is the scratchpad that comes before Ableton: you settle the progression, the melody direction, the bass, and the drums one decision at a time, and then send the whole thing over.</p>
 </header>
 
 <h2>How it works</h2>
 <p>The Orchestrator receives every request, detects intent, routes to the minimum set of agents needed, and assembles a structured response. Theory output is validated by music21 before it ever reaches the user, so the progressions are checked by a deterministic quality gate, not vibes. Every agent call is logged with structured fields.</p>
 <div class="cols">
   <div class="card"><h3>Theory Agent + Validator</h3><p>Chord progressions with alternatives and melody direction, validated deterministically by music21. The validator is not an LLM. It's a quality gate.</p></div>
-  <div class="card"><h3>Production Agent</h3><p>Step-by-step Ableton Live 12 instructions, and over MCP the chords land directly in a live Ableton set with a pad instrument auto-loaded, immediately playable.</p></div>
+  <div class="card"><h3>Production Agent</h3><p>Step-by-step Ableton Live 12 instructions, and over MCP the whole arrangement lands in a live Ableton set as named tracks with instruments loaded, immediately playable.</p></div>
   <div class="card"><h3>Teaching Agent</h3><p>Explains the why. Sonnet API when a key is available, local templates as the fallback, so the app works at $0.</p></div>
   <div class="card"><h3>Sound Engineering Agent</h3><p>Mixing, EQ, compression, sidechain. Nine local topics with API fallback.</p></div>
 </div>
@@ -41,7 +41,17 @@
   <figcaption>What you're looking at: the Orchestrator routes the request, the Theory Agent proposes Am–Dm (a minor plagal move), the music21 validator passes it, and the progression is ready to land in Ableton. Every agent in the top bar reports its status.</figcaption>
 </figure>
 </div>
-<p>The full loop goes one step further: Send to Ableton pushes the chords over MCP into a live set with a pad instrument auto-loaded, immediately playable. That clip lands when Rubato comes off pause.</p>
+<p>The full loop, recorded against the running app: a finished session, one click on Send to Ableton, and the arrangement lands in the set where you can hear it play.</p>
+<div class="demo-block" style="margin-bottom:2rem">
+<figure>
+  <div class="frame">
+    <video controls preload="none" playsinline width="1600" height="814" poster="/docs/media/rubato-arrangement-poster.webp">
+      <source src="/docs/media/rubato-arrangement.mp4" type="video/mp4">
+    </video>
+  </div>
+  <figcaption>What you're looking at: chords, bass, and drums arrive as three named tracks, each with an instrument and an EQ Eight, and the chord clip is named with the actual chords. The tempo and Live's Key &amp; Scale follow the progression, the clips sit in both Session and Arrangement view, and the set plays immediately. The melody stays yours to write.</figcaption>
+</figure>
+</div>
 
 <h2>Status</h2>
 <p>Paused while I build <a href="/knowledge-layer/">the Knowledge Layer</a>. When it resumes: operational readiness, then the demo.</p>
@@ -49,7 +59,7 @@
 
 <div class="pattern-band" aria-hidden="true"></div>
 <footer>
-  <p>Built by someone learning Ableton who got tired of Claude hallucinating chord progressions.</p>
+  <p>I built this while learning Ableton, because the empty set was the hardest part.</p>
 </footer>
 </main>
 </body>
